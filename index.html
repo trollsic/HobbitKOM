@@ -1,188 +1,65 @@
 <!DOCTYPE html>
 <html>
+<head>
 
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Hobbit: Kingdoms of middle Earth - Hero Experience Calculator" />
-
-    <script src="http://code.jquery.com/jquery.min.js"></script>
-    <link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <script src="http://getbootstrap.com/dist/js/bootstrap.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js"></script>
-    <meta charset=utf-8 />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/kom.css" rel="stylesheet" type="text/css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js"></script>
+    
+    <!-- For Local testing -->
+    <!--<script src="javascripts/jquery.min.js"></script>    
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/kom.css" rel="stylesheet" type="text/css" />
+    <script src="javascripts/bootstrap.js"></script>
+    <script src="javascripts/knockout-min.js"></script>-->
+    
+    
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hobbit: Kingdoms of middle Earth - Hero Experience Calculator</title>
-
-
-    
-  </head>
-
-  <body>
-
-    <div id="heroCalc" class="container">
-    <div class="row">
-      <div class="col-xs-6">
-    Hero Level:<br/>
-    <input type="text" id="heroLevel" data-bind="value:heroLevel" /><br/>
-    Hero Exp:<br/>
-    <input type="text" id="heroExp" data-bind="value:heroExp" /><br/>
+    <title>Hobbit: KoM Calculators</title>
+</head>
+<body>
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Hobbit: KoM Calculators</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-inverse-collapse">
+            <ul class="nav navbar-nav">
+                <li class=""><a href="hero.html">Hero Exp Calculator</a></li>
+                <li class=""><a href="boxMight.html">Box Might Calculator</a></li>
+            </ul>
+        </div>
+        <!-- /.nav-collapse -->
     </div>
-      <div class="col-xs-6">
-    Target Hero Level:<br/>
-    <input type="text" id="heroLevel" data-bind="value:targetHeroLevel" /><br/>    
-        Current Exp:<span data-bind="text:currentExp()"></span><br/>
-        Calculated Exp:<span data-bind="text:calculatedExp()"></span><br/>
-        Needed Exp:<span data-bind="text:missingExp()"></span>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Hobbit: Kingdoms of Middle-Earth Calculators</h1>
+            <p>These calculators will help you understand how to progress your hero and how much might you hug in your troop stashes!</p>
+            <p><a class="btn btn-primary btn-lg" href="hero.html">Hero Experience Calculator</a> <a class="btn btn-primary btn-lg pull-right" href="boxMight.html">Troops Might Calculator</a></p>
+        </div>
+
+        <footer>
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="list-unstyled">
+                        <li class="pull-right"><a href="#top">Back to top</a></li>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="https://github.com/trollsic/HobbitKOM">GitHub</a></li>
+                    </ul>
+                    <p>Made by Anton Troshin. Contact me at <a href="https://github.com/trollsic/">https://github.com/trollsic/</a>.</p>
+                    <p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.</p>
+                    <p>Based on <a href="http://getbootstrap.com">Bootstrap</a>, Theme <a href="http://bootswatch.com/yeti/">Yeti</a> made by <a href="http://thomaspark.me">Thomas Park</a>. Contact him at <a href="mailto:hello@thomaspark.me">hello@thomaspark.me</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts">Google</a>. Favicon by <a href="https://twitter.com/geraldhiller">Gerald Hiller</a>.</p>
+
+                </div>
+            </div>
+        </footer>
     </div>
-      </div>
-    <div class="row">
-      Gandalfs:<span data-bind="text:gandalfs"></span>
-      <input type="button" class="btn btn-success" value="+" data-bind="click:addGandalf" />
-      <input type="button" class="btn btn-warning" value="-" data-bind="click:removeGandalf" />
-    </div><br/>
-    <div class="row">
-      Archers:<span data-bind="text:archers"></span>
-      <input type="button" value="+" class="btn btn-success" data-bind="click:addArchers" />
-      <input type="button" value="-" class="btn btn-warning" data-bind="click:removeArchers" />
-    </div><br/>
-    <div class="row">
-      Warriors:<span data-bind="text:warriors"></span>
-      <input type="button" value="+" class="btn btn-success" data-bind="click:addWarriors" />
-      <input type="button" value="-" class="btn btn-warning" data-bind="click:removeWarriors" /><br/>
-    </div><br/>
-    <div class="row">
-      Attacks:<span data-bind="text:attacks"></span>
-      <input type="button" value="+" class="btn btn-success" data-bind="click:addAttacks" />
-      <input type="button" value="-" class="btn btn-warning" data-bind="click:removeAttacks" /><br/>
-    </div><br/>
-    <input type="button" class="btn btn-info" value="Calculate" data-bind="click:calculateTrainings"/>
-    <input type="button" class="btn btn-info" value="Reset" data-bind="click:resetValues"/>
-  </div>
-<script>
-var HeroCalcualtor = function()
-{ 
-  var self = this;
-  self.heroLevel = ko.observable(100);
-  self.heroExp=ko.observable(0);
-  self.targetHeroLevel=ko.observable(212);
-  self.gandalfs=ko.observable(0);
-  self.archers=ko.observable(0);
-  self.warriors=ko.observable(0);
-  self.attacks=ko.observable(0);
-    self.addGandalf=function()
-    {
-      self.gandalfs(self.gandalfs()+1);
-    };
-    self.removeGandalf=function()
-    {
-      self.gandalfs(self.gandalfs()-1);
-    };
-    self.addArchers=function()
-    {
-      self.archers(self.archers()+1);
-    };
-    self.removeArchers=function()
-    {
-      self.archers(self.archers()-1);
-    };
-    self.addWarriors=function()
-    {
-      self.warriors(self.warriors()+1);
-    };
-    self.removeWarriors=function()
-    {
-      self.warriors(self.warriors()-1);
-    };
-    self.addAttacks=function()
-    {
-      self.attacks(self.attacks()+1);
-    };
-    self.removeAttacks=function()
-    {
-      self.attacks(self.attacks()-1);
-    };
-    self.currentExp=ko.computed(function(){      
-      return getExpForLevel(self.heroLevel())+(+self.heroExp());
-    });
-    self.calculatedExp=ko.computed(function(){      
-      var stExp = +self.currentExp();
-      var runesExp = (+self.gandalfs()*50000)+
-        (+self.archers()*10000)+
-        (+self.warriors()*1000)+
-        (+self.attacks()*20);
-      return stExp+runesExp;
-    });
-  self.missingExp = ko.computed(function(){
-    var calculatedExp = +self.calculatedExp();
-    var tlev = self.targetHeroLevel();
-    var targetExp = getExpForLevel(+tlev);
-    return +targetExp - (+calculatedExp);
-    
-  });
-    self.expNeeded=ko.computed(function(){
-      var tlev = self.targetHeroLevel();
-      var targetExp = getExpForLevel(+tlev);
-      var currentExp = self.currentExp();
-      return +targetExp - (+currentExp);
-    });
- 
- self.calculateTrainings = function()
- {
-   var expNeeded = self.expNeeded();   
-   var excess = 0;
-   
-   var gandalfsNeeded = parseInt(expNeeded / 50000, 10);
-   excess = expNeeded - (gandalfsNeeded * 50000);
-   console.log(excess);
-   
-   var archersNeeded = parseInt(excess / 10000, 10);
-   excess = expNeeded - (gandalfsNeeded * 50000) - (archersNeeded * 10000);
-   console.log(excess);
-   
-   var warriorsNeeded = parseInt(excess / 1000, 10);
-   excess = expNeeded - (gandalfsNeeded * 50000) - (archersNeeded * 10000) - (warriorsNeeded*1000);
-   console.log(excess);
-   
-   var attacksNeeded = parseInt(excess/20, 10);
-   console.log(excess);
-   
-   self.gandalfs(gandalfsNeeded);
-   self.archers(archersNeeded);
-   self.warriors(warriorsNeeded);
-   self.attacks(attacksNeeded);
- };
-  self.resetValues = function()
-  {
-    self.heroLevel(100);
-    self.heroExp(0);
-  self.targetHeroLevel(212);
-  self.gandalfs(0);
-  self.archers(0);
-  self.warriors(0);
-  self.attacks(0);
-  };
- 
- function getExpForLevel(level)
- {
-   var lev = (+level)-1;
-   var totalExp = 10*(lev+(lev*lev));   
-   return totalExp;
- }
-  
-};
-
-
-ko.applyBindings(new HeroCalcualtor(), document.getElementById("heroCalc"));
-</script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-609759-7', 'lair.co.il');
-  ga('send', 'pageview');
-
-</script>
-  </body>
+</body>
 </html>
