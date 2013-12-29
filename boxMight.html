@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/kom.css" rel="stylesheet" type="text/css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js"></script>
+    
+    <!-- For Local testing -->
+    <!--<script src="javascripts/jquery.min.js"></script>    
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/kom.css" rel="stylesheet" type="text/css" />
+    <script src="javascripts/bootstrap.js"></script>
+    <script src="javascripts/knockout-min.js"></script>-->
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hobbit: KoM Might Box Calculator</title>    
+</head>
+<body>
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Hobbit: KoM Calculators</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-inverse-collapse">
+            <ul class="nav navbar-nav">
+                <li class=""><a href="hero.html">Hero Exp Calculator</a></li>
+                <li class="active"><a href="boxMight.html">Box Might Calculator</a></li>
+            </ul>
+        </div>
+        <!-- /.nav-collapse -->
+    </div>
+    <div id="mightCalc" class="container">
+
+        <div class="row">
+            <div class="page-header">
+                <h1>Hobbit: KoM Might Box Calculator</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-horizontal col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Troops Tier</label>
+                    <div class="col-xs-6">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="option1" value="1" />
+                                1
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="option2" value="2" />
+                                2
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="option3" value="3" />
+                                3
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="Radio1" value="4" />
+                                4
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="Radio2" value="5" />
+                                5
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tierBoxes" class="col-xs-2 control-label">Number of boxes</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="tierBoxes" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tierBoxes" class="col-xs-2 control-label">Troops Per Box</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="troopsPerBox" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-xs-6">
+                        <button type="button" class="btn btn-success" data-bind="click: addBox">Add</button>
+                        <button type="button" class="btn btn-default pull-right" data-bind="click: resetBoxes">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="row">
+                    <span>Boxes Added: <span data-bind="text: numberOfBoxes"></span></span>
+                    <span class="pull-right">Total might: <span data-bind="text: totalMight()"></span></span>
+                </div>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Boxes</th>
+                            <th>Troops</th>
+                            <th>Box Might</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: troopBoxes">
+                        <tr>
+                            <td><span data-bind="text: tier"></span></td>
+                            <td><span data-bind="text: boxes"></span></td>
+                            <td><span data-bind="text: contains"></span></td>
+                            <td><span data-bind="text: $parent.getBoxMight($data)"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer>
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="list-unstyled">
+                        <li class="pull-right"><a href="#top">Back to top</a></li>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="https://github.com/trollsic/HobbitKOM">GitHub</a></li>
+                    </ul>
+                    <p>Made by Anton Troshin. Contact me at <a href="https://github.com/trollsic/">https://github.com/trollsic/</a>.</p>
+                    <p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.</p>
+                    <p>Based on <a href="http://getbootstrap.com">Bootstrap</a>, Theme <a href="http://bootswatch.com/yeti/">Yeti</a> made by <a href="http://thomaspark.me">Thomas Park</a>. Contact him at <a href="mailto:hello@thomaspark.me">hello@thomaspark.me</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts">Google</a>. Favicon by <a href="https://twitter.com/geraldhiller">Gerald Hiller</a>.</p>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        var MightCalculator = function () {
+            var self = this;
+            var elements = {
+                tierBoxes: $("#tierBoxes"),
+                troopsPerBox: $("#troopsPerBox"),
+                tiers: $(".btn-group")
+            };
+            self.troopBoxes = ko.observableArray();
+            self.numberOfBoxes = ko.computed(function () { return self.troopBoxes().length; });
+            self.boxesContents = ko.computed(function () {
+                var spanContent = "";
+                ko.utils.arrayForEach(self.troopBoxes(), function (box) {
+
+                });
+            });
+
+            self.addBox = function () {
+                var tier = self.getTier();
+                var numberOfBoxes = parseInt(elements.tierBoxes.val(), 10);
+                var troopsPerBox = parseInt(elements.troopsPerBox.val(), 10);
+
+                if (tier && numberOfBoxes && troopsPerBox) {
+                    var mightBox = {
+                        tier: tier,
+                        boxes: numberOfBoxes,
+                        contains: troopsPerBox
+                    };
+
+                    self.troopBoxes.push(mightBox);
+                    elements.tierBoxes.val(0);
+                    elements.troopsPerBox.val(0);
+                }
+            };
+
+            self.resetBoxes = function () {
+                self.troopBoxes.removeAll();
+            };
+            self.totalMight = ko.computed(function () {
+                var total = 0;
+                ko.utils.arrayForEach(self.troopBoxes(), function (box) {
+                    var boxMight = self.getBoxMight(box);
+                    total += boxMight;
+                });
+                return total;
+            });
+
+            self.getBoxMight = function (box) {
+                return self.getTierMight(box.tier) * (box.boxes * box.contains);
+            };
+
+            self.getTier = function () {
+                var activeInput = elements.tiers.find(".active input");
+                if (activeInput) {
+                    return parseInt(activeInput.val(), 10);
+                }
+            };
+            self.getTierMight = function (tier) {
+                var might = 0;
+                switch (tier) {
+                    case 1:
+                        might = 4;
+                        break;
+                    case 2:
+                        might = 16;
+                        break;
+                    case 3:
+                        might = 24;
+                        break;
+                    case 4:
+                        might = 72;
+                        break;
+                    case 5:
+                        might = 144;
+                        break;
+                }
+                return might;
+            };
+
+
+
+        };
+
+
+        ko.applyBindings(new MightCalculator(), document.getElementById("mightCalc"));
+</script>
+</body>
+</html>
